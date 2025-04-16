@@ -3,6 +3,7 @@
 
 FROM ubuntu:22.04
 
+
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y sudo
@@ -14,7 +15,6 @@ RUN sudo apt-get install -y git
 RUN sudo apt-get install -y tmux
 RUN sudo apt-get install -y tmuxinator
 RUN sudo apt-get install -y vim
-RUN echo ":set number relativenumber" >> ~/.vimrc
 
 # Install dependencies
 RUN sudo apt-get install -y lsb-release
@@ -82,3 +82,17 @@ WORKDIR /root/px4msgs_ws
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build"
 
 RUN sudo echo "source /root/px4msgs_ws/install/setup.bash" >> ~/.bashrc
+
+# Install Bridge Ros - Gz
+
+# RUN sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
+# RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+# RUN sudo apt-get update
+
+# RUN sudo apt install ros-humble-ros-gz
+
+# Set up 
+
+RUN echo 'export PS1="🤖\[\e[38;5;141m\]\u@\h\[\e[0m\] \[\e[38;5;39m\]\w\[\e[0m\] \[\e[38;5;197m\]\$ \[\e[0m\]"' >> /root/.bashrc
+
+RUN echo ":set number relativenumber" >> ~/.vimrc
