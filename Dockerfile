@@ -14,9 +14,9 @@ RUN sudo apt-get install -y git
 RUN sudo apt-get install -y tmux
 RUN sudo apt-get install -y tmuxinator
 RUN sudo apt-get install -y vim
+RUN echo ":set number relativenumber" >> ~/.vimrc
 
 # Install dependencies
-
 RUN sudo apt-get install -y lsb-release
 RUN sudo apt-get install -y gnupg
 RUN sudo apt-get install -y wget
