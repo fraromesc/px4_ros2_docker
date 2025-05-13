@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export CONTAINER_NAME="px4_ros2_cont"
-export IMAGE_NAME="px4_ros2"
+export CONTAINER_NAME="qground_cont"
+export IMAGE_NAME="qground_image"
 
 
 xhost +local:docker;
@@ -34,3 +34,4 @@ else
     echo 'px4_docker found and running, executing a shell ...';
     docker exec -it $CONTAINER_NAME bash --login;
 fi;
+
