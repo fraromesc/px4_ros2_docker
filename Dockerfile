@@ -92,12 +92,6 @@ RUN sudo echo "source /home/grvc/px4msgs_ws/install/setup.bash" >> /home/grvc/.b
 
 # RUN sudo apt install ros-humble-ros-gz
 
-# Set up 
-
-#RUN echo 'export PS1="🤖\[\e[38;5;141m\]\u@\h\[\e[0m\] \[\e[38;5;39m\]\w\[\e[0m\] \[\e[38;5;197m\]\$ \[\e[0m\]"' >> /home/grvc/.bashrc
-
-RUN echo ":set number relativenumber" >> /home/grvc/.vimrc
-
 RUN sudo usermod -a -G dialout grvc
 RUN sudo apt-get remove modemmanager -y
 RUN sudo apt install gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl -y
@@ -106,14 +100,22 @@ RUN sudo apt install libfuse2 -y
 
 RUN sudo apt install libxcb-xinerama0 libxkbcommon-x11-0 libxcb-cursor-dev -y 
 
+WORKDIR /home/grvc
 RUN sudo wget https://d176tv9ibo4jno.cloudfront.net/latest/QGroundControl.AppImage
 
 RUN sudo apt install fuse
 
-RUN sudo apt install libfuse2
+RUN sudo chmod +x QGroundControl.AppImage
+
+# Set up
 
 RUN sudo apt-get install -y tmux
 RUN sudo apt-get install -y tmuxinator
 RUN sudo apt-get install -y vim
+
+RUN echo 'export PS1="🤖\[\e[38;5;141m\]\u@\h\[\e[0m\] \[\e[38;5;39m\]\w\[\e[0m\] \[\e[38;5;197m\]\$ \[\e[0m\]"' >> /home/grvc/.bashrc
+
+RUN echo ":set number relativenumber" >> /home/grvc/.vimrc
+
 
 
