@@ -6,6 +6,7 @@ This repository contains a Dockerfile and a `container.sh` script for generating
 - [PX4 v1.16-alpha1](https://github.com/PX4/PX4-Autopilot/tree/v1.16.0-alpha1)
 - [Micro-XRCE v3.0.1](https://github.com/eProsima/Micro-XRCE-DDS-Agent/tree/v3.0.1)
 - [ROS 2 package `px4_msgs` release 1.15](https://github.com/PX4/px4_msgs/tree/release/1.15)
+- [QGround Control Station](https://qgroundcontrol.com/)
 
 ## Requirements
 
