@@ -30,7 +30,7 @@ This will generate a Docker image with the necessary dependencies for working wi
 To start an interactive container based on the generated image, run:
 
 ```bash
-./container.sh run
+bash containerWSL_run.sh 
 ```
 
 This will open a session inside the container where you can work with PX4, ROS 2, and Gazebo.
