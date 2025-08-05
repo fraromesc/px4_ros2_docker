@@ -21,6 +21,7 @@ RUN sudo apt-get install -y wget
 RUN useradd -ms /bin/bash grvc
 RUN echo "grvc ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/grvc
 USER grvc
+
 # Install PX4 v1.16-alpha1
 
 WORKDIR /home/grvc/
@@ -76,19 +77,17 @@ RUN sudo ldconfig /usr/local/lib/
 # Build px4_msgs v.15
 
 RUN sudo apt-get install -y cmake
-RUN mkdir -p /home/grvc/px4msgs_ws/src
-WORKDIR /home/grvc/px4msgs_ws/src
+RUN mkdir -p /home/grvc/ros2_ws/src
+WORKDIR /home/grvc/ros2_ws/src
 RUN git clone https://github.com/PX4/px4_msgs.git -b release/1.15
-WORKDIR /home/grvc/px4msgs_ws
+WORKDIR /home/grvc/ros2_ws
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build"
 
-RUN sudo echo "source /home/grvc/px4msgs_ws/install/setup.bash" >> /home/grvc/.bashrc
+RUN sudo echo "source /home/grvc/ros2_ws/install/setup.bash" >> /home/grvc/.bashrc
 
 # Install Bridge Ros - Gz
-
-# RUN sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
-# RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
-# RUN sudo apt-get update
+RUN sudo sudo apt install -y ros-humble-ros-gzharmonic-bridge ros-humble-ros-gzharmonic-sim ros-humble-ros-gzharmonic-sim-demos
+RUN sudo apt-get update
 
 # RUN sudo apt install ros-humble-ros-gz
 
@@ -101,11 +100,11 @@ RUN sudo apt install libfuse2 -y
 RUN sudo apt install libxcb-xinerama0 libxkbcommon-x11-0 libxcb-cursor-dev -y 
 
 WORKDIR /home/grvc
-RUN sudo wget https://d176tv9ibo4jno.cloudfront.net/latest/QGroundControl.AppImage
+RUN sudo wget https://d176tv9ibo4jno.cloudfront.net/latest/QGroundControl-x86_64.AppImage
 
 RUN sudo apt install fuse
 
-RUN sudo chmod +x QGroundControl.AppImage
+RUN sudo chmod +x QGroundControl-x86_64.AppImage
 
 # Set up
 
