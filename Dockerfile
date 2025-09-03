@@ -36,9 +36,9 @@ WORKDIR /home/$USER_NAME/
 RUN ls
 RUN git clone -b v1.16.0-alpha1 https://github.com/PX4/PX4-Autopilot.git --recursive
 RUN sudo apt-get update --fix-missing && sudo apt-get install -y bc
-RUN sudo bash /home/$USER_NAME/PX4-Autopilot/Tools/setup/ubuntu.sh 
+RUN bash /home/$USER_NAME/PX4-Autopilot/Tools/setup/ubuntu.sh 
 WORKDIR /home/$USER_NAME/PX4-Autopilot
-RUN sudo make px4_sitl
+RUN make px4_sitl
 
 # Install ROS2 HUMBLE
 
