@@ -6,8 +6,8 @@ export IMAGE_NAME="px4_ros2"
 
 xhost +local:docker;
 export DISPLAY=:0
-PROJECT_DIR="/root";
-PROJECT_DIST="/root";
+PROJECT_DIR="/";
+PROJECT_DIST="/";
 
 if [ "$(docker ps -qaf name=$CONTAINER_NAME)" = "" ]; then
     echo 'Container not found, creating it ...';
