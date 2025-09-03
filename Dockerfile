@@ -3,6 +3,9 @@
 
 FROM ubuntu:22.04
 
+# User name
+ARG USER_NAME=grvc
+ENV USER_NAME=${USER_NAME}
 
 RUN apt-get update
 RUN apt-get upgrade -y
@@ -11,24 +14,30 @@ RUN sudo apt-get update
 RUN sudo apt-get upgrade -y
 
 # Install basic tools
+
 RUN sudo apt-get install -y git
 
 # Install dependencies
+
 RUN sudo apt-get install -y lsb-release
 RUN sudo apt-get install -y gnupg
 RUN sudo apt-get install -y wget
 
-RUN useradd -ms /bin/bash grvc
-RUN echo "grvc ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/grvc
-USER grvc
+# Create User "$USER_NAME"
+
+RUN useradd -ms /bin/bash $USER_NAME
+RUN echo "$USER_NAME ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USER_NAME
+USER $USER_NAME
+RUN sudo usermod -a -G dialout $USER_NAME
 
 # Install PX4 v1.16-alpha1
 
-WORKDIR /home/grvc/
+WORKDIR /home/$USER_NAME/
 RUN ls
 RUN git clone -b v1.16.0-alpha1 https://github.com/PX4/PX4-Autopilot.git --recursive
-RUN sudo bash /home/grvc/PX4-Autopilot/Tools/setup/ubuntu.sh 
-WORKDIR /home/grvc/PX4-Autopilot
+RUN sudo apt-get update --fix-missing && sudo apt-get install -y bc
+RUN sudo bash /home/$USER_NAME/PX4-Autopilot/Tools/setup/ubuntu.sh 
+WORKDIR /home/$USER_NAME/PX4-Autopilot
 RUN sudo make px4_sitl
 
 # Install ROS2 HUMBLE
@@ -56,19 +65,19 @@ RUN sudo apt-get upgrade -y
  
 RUN sudo apt install -y ros-humble-desktop
 
-RUN sudo echo "source /opt/ros/humble/setup.bash" >> /home/grvc/.bashrc
+RUN sudo echo "source /opt/ros/humble/setup.bash" >> /home/$USER_NAME/.bashrc
 RUN sudo /bin/bash -c "source /opt/ros/humble/setup.bash"
 
 RUN sudo apt install -y python3-colcon-common-extensions
 RUN sudo apt install -y python3-rosdep
 
-
 # Install Micro-XRCE-DDS-Agent v3.0.1
-WORKDIR /home/grvc/
+
+WORKDIR /home/$USER_NAME/
 RUN git clone -b v3.0.1 https://github.com/eProsima/Micro-XRCE-DDS-Agent.git
-WORKDIR /home/grvc/Micro-XRCE-DDS-Agent
+WORKDIR /home/$USER_NAME/Micro-XRCE-DDS-Agent
 RUN sudo mkdir build
-WORKDIR /home/grvc/Micro-XRCE-DDS-Agent/build
+WORKDIR /home/$USER_NAME/Micro-XRCE-DDS-Agent/build
 RUN sudo cmake .. 
 RUN sudo make -j4
 RUN sudo make install -j4
@@ -77,21 +86,22 @@ RUN sudo ldconfig /usr/local/lib/
 # Build px4_msgs v.15
 
 RUN sudo apt-get install -y cmake
-RUN mkdir -p /home/grvc/ros2_ws/src
-WORKDIR /home/grvc/ros2_ws/src
+RUN mkdir -p /home/$USER_NAME/ros2_ws/src
+WORKDIR /home/$USER_NAME/ros2_ws/src
 RUN git clone https://github.com/PX4/px4_msgs.git -b release/1.15
-WORKDIR /home/grvc/ros2_ws
+WORKDIR /home/$USER_NAME/ros2_ws
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build"
 
-RUN sudo echo "source /home/grvc/ros2_ws/install/setup.bash" >> /home/grvc/.bashrc
+RUN sudo echo "source /home/$USER_NAME/ros2_ws/install/setup.bash" >> /home/$USER_NAME/.bashrc
 
 # Install Bridge Ros - Gz
+
 RUN sudo sudo apt install -y ros-humble-ros-gzharmonic-bridge ros-humble-ros-gzharmonic-sim ros-humble-ros-gzharmonic-sim-demos
 RUN sudo apt-get update
 
 # RUN sudo apt install ros-humble-ros-gz
 
-RUN sudo usermod -a -G dialout grvc
+
 RUN sudo apt-get remove modemmanager -y
 RUN sudo apt install gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl -y
 RUN sudo apt install libfuse2 -y
@@ -99,11 +109,13 @@ RUN sudo apt install libfuse2 -y
 
 RUN sudo apt install libxcb-xinerama0 libxkbcommon-x11-0 libxcb-cursor-dev -y 
 
-WORKDIR /home/grvc
+# Download QGround
+WORKDIR /home/$USER_NAME
 RUN sudo wget https://d176tv9ibo4jno.cloudfront.net/latest/QGroundControl-x86_64.AppImage
 
-RUN sudo apt install fuse
+# Install QGround
 
+RUN sudo apt install fuse
 RUN sudo chmod +x QGroundControl-x86_64.AppImage
 
 # Set up
@@ -112,9 +124,6 @@ RUN sudo apt-get install -y tmux
 RUN sudo apt-get install -y tmuxinator
 RUN sudo apt-get install -y vim
 
-RUN echo 'export PS1="🤖\[\e[38;5;141m\]\u@\h\[\e[0m\] \[\e[38;5;39m\]\w\[\e[0m\] \[\e[38;5;197m\]\$ \[\e[0m\]"' >> /home/grvc/.bashrc
+RUN echo 'export PS1="🤖\[\e[38;5;141m\]\u@\h\[\e[0m\] \[\e[38;5;39m\]\w\[\e[0m\] \[\e[38;5;197m\]\$ \[\e[0m\]"' >> /home/$USER_NAME/.bashrc
 
-RUN echo ":set number relativenumber" >> /home/grvc/.vimrc
-
-
-
+RUN echo ":set number relativenumber" >> /home/$USER_NAME/.vimrc
