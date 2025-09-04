@@ -10,8 +10,8 @@ xhost +local:docker
 export DISPLAY=${DISPLAY:-:0}
 
 # Usa tu HOME real en lugar de /root si no estás corriendo como root fuera del contenedor
-PROJECT_DIR="/"
-PROJECT_DIST="/"
+PROJECT_DIR="/";
+PROJECT_DIST="$HOME";
 
 if [ "$(docker ps -qaf name=$CONTAINER_NAME)" = "" ]; then
     echo 'Container not found, creating it ...'
