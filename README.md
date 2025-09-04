@@ -13,7 +13,6 @@ This repository contains a Dockerfile and a `container.sh` script for generating
 Before getting started, ensure you have the following installed on your system:
 
 - [Docker](https://docs.docker.com/get-docker/)
-- [Docker Compose](https://docs.docker.com/compose/install/) (optional, if you want to use `docker-compose`)
 
 ## Building the Image
 
@@ -39,6 +38,30 @@ This will open a session inside the container where you can work with PX4, ROS 2
 ## Customization
 
 If you want to modify the PX4, Micro-XRCE, or `px4_msgs` version, edit the `Dockerfile` and adjust the corresponding variables.
+
+### USER 
+
+The following line in the Dockerfile sets the container's username. By default, it is `grvc`:
+
+```bash
+ARG USER_NAME=grvc
+```
+
+### QGroundControl Version
+
+The `Dockerfile` downloads QGroundControl following the official [guide](https://docs.qgroundcontrol.com/master/en/qgc-user-guide/getting_started/download_and_install.html) for Linux.  
+
+If the download link for QGroundControl changes, you need to update the following line: 
+
+```bash
+RUN sudo wget https://d176tv9ibo4jno.cloudfront.net/latest/QGroundControl-x86_64.AppImage
+```
+ Also, if the filename changes, you must update this line as well:
+
+``` bash
+RUN sudo chmod +x QGroundControl-x86_64.AppImage
+```
+
 
 ## Contact
 
