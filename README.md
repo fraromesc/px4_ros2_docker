@@ -33,7 +33,7 @@ This will generate a Docker image with the necessary dependencies for working wi
 
 ## Running the Container
 
-This will open a Docker the container (`px4_ros2_con`) where you can work with PX4, ROS 2, and Gazebo.
+This will open a Docker the container (`px4_ros2_cont`) where you can work with PX4, ROS 2, and Gazebo.
 ### Windows and WSL
 
 To start an interactive container based on the generated image, run the following command at the same time that Docker Desktop is open:
@@ -41,10 +41,19 @@ To start an interactive container based on the generated image, run the followin
 ```bash
 bash containerWSL_run.sh 
 ```
+When the container starts: 
+
+```bash
+cd
+```
 
 ### Ubuntu 22.04
 ```bash
 bash container_run.sh 
+```
+When the container starts: 
+``` bash 
+cd 
 ```
 
 ## Customization
@@ -73,7 +82,6 @@ RUN sudo wget https://d176tv9ibo4jno.cloudfront.net/latest/QGroundControl-x86_64
 ``` bash
 RUN sudo chmod +x QGroundControl-x86_64.AppImage
 ```
-
 
 ## Contact
 

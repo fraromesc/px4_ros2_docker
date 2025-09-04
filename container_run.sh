@@ -11,7 +11,7 @@ export DISPLAY=${DISPLAY:-:0}
 
 # Usa tu HOME real en lugar de /root si no estás corriendo como root fuera del contenedor
 PROJECT_DIR="/";
-PROJECT_DIST="$HOME";
+PROJECT_DIST="/";
 
 if [ "$(docker ps -qaf name=$CONTAINER_NAME)" = "" ]; then
     echo 'Container not found, creating it ...'
