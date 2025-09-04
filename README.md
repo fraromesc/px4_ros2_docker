@@ -1,6 +1,6 @@
 # Docker ROS2 PX4 Environment
 
-This repository contains a Dockerfile and a `container.sh` script for generating a container image based on Ubuntu 22.04 with :
+This repository contains a Dockerfile and a `container.sh` script for generating a docker container and a docker image based on Ubuntu 22.04 with :
 - [ROS 2 Humble](https://docs.ros.org/en/humble/index.html)
 - [Gazebo Harmonic](https://gazebosim.org/docs/harmonic/getstarted/)
 - [PX4 v1.16-alpha1](https://github.com/PX4/PX4-Autopilot/tree/v1.16.0-alpha1)
@@ -23,7 +23,7 @@ Before getting started, ensure you have the following installed on your system:
 
 ## Building the Image
 
-To build the Docker image, run the following command:
+To build the Docker image called `px4_ros2`, run the following command:
 
 ```bash
 docker build -t px4_ros2 .
@@ -33,7 +33,7 @@ This will generate a Docker image with the necessary dependencies for working wi
 
 ## Running the Container
 
-This will open a session inside the container where you can work with PX4, ROS 2, and Gazebo.
+This will open a Docker the container (`px4_ros2_con`) where you can work with PX4, ROS 2, and Gazebo.
 ### Windows and WSL
 To start an interactive container based on the generated image, run:
 
