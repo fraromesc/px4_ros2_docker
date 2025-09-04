@@ -35,7 +35,8 @@ This will generate a Docker image with the necessary dependencies for working wi
 
 This will open a Docker the container (`px4_ros2_con`) where you can work with PX4, ROS 2, and Gazebo.
 ### Windows and WSL
-To start an interactive container based on the generated image, run:
+
+To start an interactive container based on the generated image, run the following command at the same time that Docker Desktop is open:
 
 ```bash
 bash containerWSL_run.sh 
