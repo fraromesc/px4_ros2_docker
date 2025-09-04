@@ -9,10 +9,17 @@ This repository contains a Dockerfile and a `container.sh` script for generating
 - [QGround Control Station](https://qgroundcontrol.com/)
 
 ## Requirements
+It is possible to use on: 
+- Windows with _Windows Subsytem Linux_ (WSL) and Ubuntu 22.04
+
+- Ubuntu 22.04
+
 
 Before getting started, ensure you have the following installed on your system:
 
 - [Docker](https://docs.docker.com/get-docker/)
+
+
 
 ## Building the Image
 
@@ -26,14 +33,18 @@ This will generate a Docker image with the necessary dependencies for working wi
 
 ## Running the Container
 
+This will open a session inside the container where you can work with PX4, ROS 2, and Gazebo.
+### Windows and WSL
 To start an interactive container based on the generated image, run:
 
 ```bash
 bash containerWSL_run.sh 
 ```
 
-This will open a session inside the container where you can work with PX4, ROS 2, and Gazebo.
-
+### Ubuntu 22.04
+```bash
+bash container_run.sh 
+```
 
 ## Customization
 
